@@ -7,7 +7,7 @@
                     <div class="col-lg"> 
                         <div class="p-5"> 
                             <div class="text-center"> 
-                                <h1 class="h4 text-gray-900 mb-4">Daftar Menjadi Member</h1> 
+                                <h1 class="h4 text-gray-900 mb-4">Daftar Menjadi Member Kampusku</h1> 
                             </div> 
                             <form class="user" method="post" action="<?= base_url(); ?>autentifikasi/registrasi/"> 
                                 <div class="form-group"> 
