@@ -27,6 +27,7 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();
         $this->db->where('role_id', 1);
         $data['anggota'] = $this->db->get('user')->result_array();
+        $data['buku'] = $this->ModelBuku->getBuku()->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -45,11 +46,11 @@ class User extends CI_Controller
         ]);
 
         if($this->form_validation->run() == false) {
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('user/ubah-profile', $data);
-        $this->load->view('templates/footer');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/ubah-profile', $data);
+            $this->load->view('templates/footer');
         } else {
             $nama = $this->input->post('nama',true);
             $email = $this->input->post('email', true);
@@ -66,6 +67,7 @@ class User extends CI_Controller
                 $config['file_name'] = 'pro' . time();
 
                 $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
                 if($this->upload->do_upload('image')) {
                     $gambar_lama = $data['user']['image'];
@@ -75,7 +77,7 @@ class User extends CI_Controller
 
                     $gambar_baru = $this->upload->data('file_name');
                     $this->db->set('image', $gambar_baru);
-                } else { }
+                }
             }
             
             $this->db->set('nama', $nama);

@@ -24,82 +24,52 @@ class Buku_model extends CI_Model
         $this->db->update('buku', $data, $where);
     }
 
-    public function hapusBuku($id)
-    {
-        $this->db->where('id', $id);
-        $this->db->delete('buku');
+    public function hapusBuku($where = null) {
+        $this->db->delete('buku', $where);
     }
 
-
-    public function UbahBuku($id)
-    {
-        $data = [
-            'judul_buku' => $this->input->post('judul_buku', true),
-            'id_kategori' => $this->input->post('id_kategori', true),
-            'pengarang' => $this->input->post('pengarang', true),
-            'penerbit' => $this->input->post('penerbit', true),
-            'tahun_terbit' => $this->input->post('tahun', true),
-            'isbn' => $this->input->post('isbn', true),
-            'stok' => $this->input->post('stok', true),
-            'dipinjam' => 0,
-            'dibooking' => 0,
-            'image' => $gambar
-            ];
-
-        $this->db->where('id', $this->input->post('id')); //mengambil id yang di hidden
-        $this->db->update('buku', $data);
-    }
-
-    public function total($field, $where)
-    {
+    public function total($field, $where) {
         $this->db->select_sum($field);
-        if(!empty($where) && count($where) > 0){
+        if(!empty($where) && count($where) > 0) {
             $this->db->where($where);
         }
         $this->db->from('buku');
         return $this->db->get()->row($field);
     }
 
-    //manajemen kategori
-    public function getKategori()
-    {
+    //Manajemen Kategori
+    public function getKategori() {
         return $this->db->get('kategori');
     }
 
-    public function kategoriWhere($where)
-    {
-        return $this->db->get_where('kategori', $where);
+    public function kategoriWhere($where) {
+        return $this->db->get()->row($field);
     }
 
-    public function simpanKategori($data=null)
-    {
+    public function simpanKategori($data = null) {
         $this->db->insert('kategori', $data);
     }
 
-    public function hapusKategori($where=null)
-    {
+    public function hapusKategori($where = null) {
         $this->db->delete('kategori', $where);
     }
 
-    public function updateKategori($where=null, $data=null)
-    {
-        $this->db->uodate('kategori',$data,$where);
+    public function updateKategori($where = null, $data = null) {
+        $this->db->update('kategori', $data, $where);
     }
 
-    //join
-    public function joinKategoriBuku($where)
-    {
-        $this->db->select('buku.id_kategori,kategori.nama_kategori, buku.judul_buku, buku.pengarang, buku.penerbit,
-        ,kategori.nama_kategori, buku.tahun_terbit, buku.isbn, buku_image
-        , buku.pinjaman, buku.dibooking, buku.stok');
+    //Join
+    public function joinKategoriBuku($where) {
+        $this->db->select('*');
         $this->db->from('buku');
-        $this->db->join('kategori','kategori.id = buku.id_kategori');
+        $this->db->join('kategori', 'kategori.id_kategori = buku.id_kategori');
         $this->db->where($where);
         return $this->db->get();
     }
+    
+    public function getBukuList($limit, $start){
+        $query = $this->db->get('buku', $limit, $start);
+        return $query;
+    }
 }
-
-// Dengan model seperti di atas, Untuk menginput data ke database kita bisa menggunakan function simpan(),
-//untuk menampilkan data atau mengambil data dari database kita bisa menggunakan function tampil(),
-//untuk menghapus data dari database kita bisa menggunakan function hapus(),
-//dan untuk mengupdate data pada database kita bisa menggunakan function ubah(). 
+?>

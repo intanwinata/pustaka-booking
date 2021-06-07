@@ -9,8 +9,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-md font-weight-bold text-white text-uppercase mb-1">Jumlah Anggota</div>
-                        <div class="h1 mb-0 font-weight-bold text-gray-800"> <?= $this->User_model->getUserWhere(['role_id' => 1])->num_rows(); ?> </div>
-                        </div>
+                        <div class="h1 mb-0 font-weight-bold text-gray-800"><?= $this->User_model->getUserWhere(['role_id' => 1])->num_rows();?> </div>
                         <div class="col-auto">
                             <a href="<?= base_url(); ?>user/anggota">
                             <i class="fas fa-users fa-3x text-warning"></i></a>
@@ -36,7 +35,7 @@
                        </div>
                     </div>
                     <div class="col-auto">
-                      <a href="<?= base_url(); ?>buku"><i class="fas fa-book fa-3x text-primary"></i></a>
+                      <a href="<?= base_url('buku');?>"><i class="fas fa-book fa-3x text-primary"></i></a>
                     </div>
                   </div>
                 </div>
@@ -59,7 +58,7 @@
                        </div>
                     </div>
                     <div class="col-auto">
-                      <a href="<?= base_url(); ?>user"><i class="fas fa-user-tag fa-3x text-success"></i></a>
+                      <a href="<?= base_url('user'); ?>"><i class="fas fa-user-tag fa-3x text-success"></i></a>
                     </div>
                   </div>
                 </div>
@@ -82,7 +81,7 @@
                        </div>
                     </div>
                     <div class="col-auto">
-                      <a href="<?= base_url(); ?>user"><i class="fas fa-shopping-cart fa-3x text-danger"></i></a>
+                      <a href="<?= base_url('user'); ?>"><i class="fas fa-shopping-cart fa-3x text-danger"></i></a>
                     </div>
                   </div>
                 </div>
@@ -118,7 +117,8 @@
                     <tbody>
                     <?php
                     $i = 1;
-                    foreach ($anggota as $a) { ?>
+                    foreach ($anggota as $a) :
+                    ?>
                     <tr>
                         <td><?= $i++; ?></td>
                         <td><?= $a['nama']; ?></td>
@@ -127,7 +127,7 @@
                         <td><?= $a['is_active']; ?></td>
                         <td><?= date('Y', $a['tanggal_input']); ?></td>
                     </tr>
-                    <?php } ?>
+                    <?php endforeach; ?>
                     </tbody> 
                 </table>
                 </div>
