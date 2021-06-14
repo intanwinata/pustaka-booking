@@ -2,7 +2,7 @@
  <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(); ?>user/index">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(); ?>admin/index">
   <div class="sidebar-brand-icon rotate-n-15">
     <i class="fas fa-book"></i>
   </div>
@@ -38,7 +38,7 @@
    
 <!-- Nav Item - Dashboard -->
   <li class="nav-item">
-    <a class="nav-link pb-0" href="<?= base_url('buku/index'); ?>">
+    <a class="nav-link pb-0" href="<?= base_url('buku'); ?>">
       <i class="fas fa-fw fa-book"></i>
       <span>Data Buku</span>
     </a> 

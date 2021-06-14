@@ -9,7 +9,7 @@
     <div class="card text-white bg-info mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src="<?= base_url(); ?>assets/img/profile/ . $user['image']" class="card-img-top" alt="...">
+                <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="card-img" alt="...">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -20,7 +20,7 @@
                         <?= date('d F Y', $user['tanggal_input']); ?> </b></small></p>
                 </div>
                 <div class="btn btn-primary ml-3 my-3">
-                    <a href="<?= base_url('user/ubah-profil'); ?>"
+                    <a href="<?= base_url('user/ubahprofil'); ?>"
                     class="text text-white"><i class="fas fa-user-edit"></i> Ubah Profil</a>
                 </div>
             </div>

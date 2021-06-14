@@ -5,7 +5,7 @@ class Autentifikasi extends CI_Controller {
     public function index() {
         //Jika statusnya sudah login, maka tidak bisa mengakses halaman login alias dikembalikan ke tampilan user
         if ($this->session->userdata('email')) {
-            redirect('user');
+            redirect('admin');
         }
 
         $this->form_validation->set_rules('email', 'Alamat Email', 'required|trim|valid_email', [
@@ -13,7 +13,7 @@ class Autentifikasi extends CI_Controller {
             'valid_email' => 'Email Tidak Benar'
         ]);
         $this->form_validation->set_rules('password', 'Password', 'required|trim', [
-            'required' => 'password Harus diisi!!!'
+            'required' => 'Password Harus diisi!!!'
         ]);
         if ($this->form_validation->run() == false) {
             $data['judul'] = 'Login';
@@ -45,15 +45,7 @@ class Autentifikasi extends CI_Controller {
                     ];
 
                     $this->session->set_userdata($data);
-
-                    if ($user['role_id'] == 1) {
-                        redirect('admin');
-                    } else {
-                        if ($user['image'] == 'default.jpg') {
-                            $this->session->set_flashdata('pesan', '<div class="alert alert-info alert-message" role="alert">Silahkan Ubah Profile Anda untuk Ubah Photo Profil</div>');
-                        }
-                        redirect('user');
-                    }
+                    redirect('admin');    
                 } else {
                     $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Password Salah!!</div>');
                     redirect('autentifikasi');
@@ -93,7 +85,7 @@ class Autentifikasi extends CI_Controller {
         //yaitu jika format email tidak benar maka pesannya 'Email tidak benar!!'. Jika email belum diisi,
         //maka pesannya adalah 'email belum diisi', dan jika email yang diinput sudah dipakai user lain,
         //maka pesannya 'email sudah dipakai'
-        $this->form_validation->set_rules('email', 'Alamat Email', 'required'|trim|valid_email|is_unique[user.email], [
+        $this->form_validation->set_rules('email', 'Alamat Email', 'required|trim|valid_email|is_unique[user.email]', [
             'valid_email' => 'Email Tidak Benar',
             'required' => 'Email Belum Diisi',
             'is_unique' => 'Email Sudah Terdaftar',
@@ -103,10 +95,10 @@ class Autentifikasi extends CI_Controller {
         //'Password tidak sama'. Jika Password diisi kurang dari 3 digit maka pesannya adalah
         //'Password terlalu pendek'.
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-            'matches' => 'Password tidak sama!!',
-            'min_length' => 'Password terlalu pendek'
+            'matches' => 'Password Tidak Sama!!',
+            'min_length' => 'Password Terlalu Pendek'
         ]);
-        $this->form_validation->set_rules('password2', 'Repeat Password', 'required|trim|min_length[3]|matches[password1]');
+        $this->form_validation->set_rules('password2', 'Repeat Password', 'required|trim|matches[password1]');
         //jika tidak disubmit kemudian validasi form diatas tidak berjalan, maka akan tetap berada di
         //tampilan registrasi. tapi jika disubmit kemudian validasi form diatas berjalan, maka data yang
         //diinput akan disimpan ke dalam tabel user
@@ -123,7 +115,7 @@ class Autentifikasi extends CI_Controller {
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id' => 2,
-                'is_active' => 0,
+                'is_active' => 1,
                 'tanggal_input' => time()
             ];
 
@@ -134,5 +126,3 @@ class Autentifikasi extends CI_Controller {
         }
     }
 }
-
-?>

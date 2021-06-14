@@ -48,7 +48,7 @@
 						     <td>
 						          <picture>
 						               <source srcset="" type="image/svg+xml">
-						               <img src="<?= base_url(); ?>assets/img/upload/ . $b ['image']" class="img-fluid img-thumbnail" alt="...">
+						               <img src="<?= base_url('assets/img/upload/') . $b ['image']; ?>" class="img-fluid img-thumbnail" alt="...">
 						               </picture></td>
 						               <td>
 						                   <a href="<?= base_url(); ?>buku/ubah/<?= $b['id']; ?>" class="badge badge-success"><i class="fas fa-edit"></i> Ubah</a>

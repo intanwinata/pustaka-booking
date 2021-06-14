@@ -43,7 +43,7 @@ class Buku_model extends CI_Model
     }
 
     public function kategoriWhere($where) {
-        return $this->db->get()->row($field);
+        return $this->db->get_where('kategori', $where);
     }
 
     public function simpanKategori($data = null) {
@@ -62,14 +62,13 @@ class Buku_model extends CI_Model
     public function joinKategoriBuku($where) {
         $this->db->select('*');
         $this->db->from('buku');
-        $this->db->join('kategori', 'kategori.id_kategori = buku.id_kategori');
+        $this->db->join('kategori','kategori.id = buku.id_kategori');
         $this->db->where($where);
         return $this->db->get();
     }
     
     public function getBukuList($limit, $start){
         $query = $this->db->get('buku', $limit, $start);
-        return $query;
+        return $query; //ini gausa?
     }
 }
-?>

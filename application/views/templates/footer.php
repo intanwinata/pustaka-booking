@@ -3,7 +3,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Web Programming II with Bootstrap <?= date('Y'); ?></span>
+            <span>Copyright &copy; Web Programming with Bootstrap <?= date('Y'); ?></span>
         </div>
     </div>
 </footer>
@@ -55,9 +55,27 @@
       $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
 
+    $('.form-check-input').on('click', function() {
+      const menuId = $($this).data('menu');
+      const roleId = $($this).data('role');
+
+      $.ajax({
+        url: "<?= base_url('admin/changeaccess'); ?>",
+        type: 'post',
+        data: {
+          menuId: menuId,
+          roleId: roleId
+        },
+        success: fuction() {
+          document.location.href = "<?= base_url('admin/akses-role/'); ?>" + roleId;
+        }
+      });
+    });
+
     $(document).ready(function() {
         $("#table-datatable").dataTable();
     });
+    $('.alert-message').alert().delay(3500).slideUp('slow');
 </script>
 </body>
 </html>

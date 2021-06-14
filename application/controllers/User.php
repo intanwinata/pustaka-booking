@@ -6,12 +6,12 @@ class User extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        cek_login();
+        cek_login(); //untuk menangkap session email
     }
 
     public function index()
     {
-        $data['judul'] = 'Home';
+        $data['judul'] = 'Profile Saya';
         $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/header', $data);
@@ -42,7 +42,7 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim', [
-            'required' => 'Nama Tidak Boleh Kososng'
+            'required' => 'Nama Tidak Boleh Kosong'
         ]);
 
         if($this->form_validation->run() == false) {
@@ -67,7 +67,7 @@ class User extends CI_Controller
                 $config['file_name'] = 'pro' . time();
 
                 $this->load->library('upload', $config);
-                $this->upload->initialize($config);
+                //$this->upload->initialize($config);
 
                 if($this->upload->do_upload('image')) {
                     $gambar_lama = $data['user']['image'];
@@ -77,7 +77,7 @@ class User extends CI_Controller
 
                     $gambar_baru = $this->upload->data('file_name');
                     $this->db->set('image', $gambar_baru);
-                }
+                } else { }
             }
             
             $this->db->set('nama', $nama);
