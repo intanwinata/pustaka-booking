@@ -67,8 +67,8 @@ class Buku_model extends CI_Model
         return $this->db->get();
     }
     
-    public function getBukuList($limit, $start){
-        $query = $this->db->get('buku', $limit, $start);
-        return $query; //ini gausa?
-    }
+    //public function getBukuList($limit, $start){
+        //$query = $this->db->get('buku', $limit, $start);
+       // return $query; //ini gausa?
+    //}
 }

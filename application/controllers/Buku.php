@@ -16,11 +16,11 @@ class Buku extends CI_Controller
 		$data['buku'] = $this->Buku_model->getBuku()->result_array();
 		$data['kategori'] = $this->Buku_model->getKategori()->result_array();
 
-		$this->form_validation->set_rules('judul_buku', 'Judul Buku', 'required|min_length[3]', [ 
+		$this->form_validation->set_rules('buku', 'Judul Buku', 'required|min_length[3]', [ 
 			'required' => 'Judul Buku harus diisi', 
 			'min_length' => 'Judul buku terlalu pendek'
 			]);
-		$this->form_validation->set_rules('id_kategori', 'Kategori', 'required', [
+		$this->form_validation->set_rules('id', 'Kategori', 'required', [
 			'required' => 'Nama pengarang harus diisi'
 			]);
 		$this->form_validation->set_rules('pengarang', 'Nama Pengarang', 'required|min_length[3]', [
@@ -42,7 +42,7 @@ class Buku extends CI_Controller
             'min_length' => 'Nama ISBN terlalu pendek',
             'numeric' => 'Yang anda masukan bukan angka'
 		]);
-	    $this->form_validation->set_rules('stok', 'Stok', 'required|numeric', [
+	    $this->form_validation->set_rules('buku', 'Stok', 'required|numeric', [
             'required' => 'Stok harus diisi',
             'numeric' => 'Yang anda masukan bukan angka'
 		]);
@@ -71,16 +71,16 @@ class Buku extends CI_Controller
 			$gambar = '';
 		}
 		$data = [
-		'judul_buku' => $this->input->post('judul_buku', true),
-		'id_kategori' => $this->input->post('id_kategori', true),
-		'pengarang' => $this->input->post('pengarang', true),
-		'penerbit' => $this->input->post('penerbit', true),
-		'tahun_terbit' => $this->input->post('tahun', true),
-		'isbn' => $this->input->post('isbn', true),
-		'stok' => $this->input->post('stok', true),
-		'dipinjam' => 0,
-		'dibooking' => 0,
-		'image' => $gambar
+			'judul_buku' => $this->input->post('judul_buku', true),
+			'id_kategori' => $this->input->post('id_kategori', true),
+			'pengarang' => $this->input->post('pengarang', true),
+			'penerbit' => $this->input->post('penerbit', true),
+			'tahun_terbit' => $this->input->post('tahun', true),
+			'isbn' => $this->input->post('isbn', true),
+			'stok' => $this->input->post('stok', true),
+			'dipinjam' => 0,
+			'dibooking' => 0,
+			'image' => $gambar
 		];
 
 		$this->Buku_model->simpanBuku($data);
@@ -100,9 +100,9 @@ class Buku extends CI_Controller
         $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();
         $data['buku'] = $this->Buku_model->bukuWhere(['id' => $this->uri->segment(3)])->row();
         $kategori = $this->Buku_model->joinKategoriBuku(['buku.id' => $this->uri->segment(3)])->result_array();
-        foreach ($kategori as $k) {
-            $data['id'] = $k['id_kategori'];
-            $data['k'] = $k['nama_kategori'];
+        foreach ($buku as $b) {
+            $data['id'] = $b['id'];
+            $data['b'] = $b['judul_buku'];
         }
         $data['kategori'] = $this->Buku_model->getKategori()->result_array();
 
@@ -110,7 +110,7 @@ class Buku extends CI_Controller
             'required' => 'Judul Buku harus diisi!',
             'min_length' => 'Judul Buku terlalu pendek'
         ]);
-        $this->form_validation->set_rules('id_kategori', 'Kategori', 'required', [
+        $this->form_validation->set_rules('id', 'Kategori', 'required', [
             'required' => 'Kategori harus diisi!'
         ]);
         $this->form_validation->set_rules('pengarang', 'Nama Pengarang', 'required|min_length[3]', [
@@ -139,7 +139,7 @@ class Buku extends CI_Controller
 
 
         $this->form_validation->set_rules('judul_buku', 'Judul Buku', 'required|min_length[3]', [ 'required' => 'Judul Buku harus diisi', 'min_length' => 'Judul buku terlalu pendek']);
-		$this->form_validation->set_rules('id_kategori', 'Kategori', 'required', ['required' => 'Nama pengarang harus diisi']);
+		$this->form_validation->set_rules('id', 'Kategori', 'required', ['required' => 'Nama pengarang harus diisi']);
 		$this->form_validation->set_rules('pengarang', 'Nama Pengarang', 'required|min_length[3]', [ 'required' => 'Nama pengarang harus diisi', 'min_length' => 'Nama pengarang terlalu pendek']);
 		$this->form_validation->set_rules('penerbit', 'Nama Penerbit', 'required|min_length[3]', [
 		'required' => 'Nama penerbit harus diisi', 'min_length' => 'Nama penerbit terlalu pendek']);
