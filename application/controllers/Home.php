@@ -61,5 +61,11 @@ class Home extends CI_Controller
         $this->load->view('templates/templates-user/modal');
         $this->load->view('templates/templates-user/footer');
     } 
+
+    public function logout() {
+        session_unset();
+        session_destroy();
+        redirect('home');
+    }
 }
  
