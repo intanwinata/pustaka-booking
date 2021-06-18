@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No Direct script access allowed');
 
-class Autentifikasi extends CI_Controller {
+class Autentifikasi extends CI_Controller 
+{
     public function index() {
         //Jika statusnya sudah login, maka tidak bisa mengakses halaman login alias dikembalikan ke tampilan user
         if ($this->session->userdata('email')) {
@@ -34,7 +35,9 @@ class Autentifikasi extends CI_Controller {
         $user = $this->User_model->cekData(['email' => $email])->row_array();
 
         //jika usernya ada
-        if ($user) {
+        if ($user) 
+        {
+            if ($user['role_id'] == 1) {
             //jika user sudah aktif
             if ($user['is_active'] == 1) {
                 //cek password
@@ -50,6 +53,13 @@ class Autentifikasi extends CI_Controller {
                     $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Password Salah!!</div>');
                     redirect('autentifikasi');
                 }
+            } else {
+                    $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Anda Tidak Diizinkan</div>');
+                redirect('autentifikasi');
+                }
+            } else {
+                    $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Anda Tidak Diizinkan</div>');
+                redirect('autentifikasi');
             }
         } else {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Email tidak terdaftar!!</div>');

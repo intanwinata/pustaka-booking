@@ -83,7 +83,7 @@
                           </div>
                         </div>
                         <div class="col-auto">
-                          <a href="<?= base_url('user'); ?>"><i class="fas fa-shopping-cart fa-3x text-danger"></i></a>
+                          <a href="<?= base_url('booking'); ?>"><i class="fas fa-shopping-cart fa-3x text-danger"></i></a>
                         </div>
                       </div>
                     </div>

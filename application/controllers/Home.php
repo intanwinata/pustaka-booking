@@ -6,7 +6,7 @@ class Home extends CI_Controller
     function __construct()
 	{
 		parent::__construct();
-        $this->load->model(['Buku_model', 'User_model']);
+        $this->load->model(['Buku_model', 'User_model', 'Booking_model']);
     }
     
     public function index()

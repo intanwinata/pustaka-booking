@@ -11,9 +11,10 @@ class User extends CI_Controller
 
     public function index()
     {
-        $data['judul'] = 'Profile Saya';
+        
         $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();
 
+        $data['judul'] = 'Profile Saya';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -23,12 +24,13 @@ class User extends CI_Controller
 
     public function anggota()
     {
-        $data['judul'] = 'Data Anggota';
+       
         $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();
         $this->db->where('role_id', 1);
         $data['anggota'] = $this->db->get('user')->result_array();
-        $data['buku'] = $this->ModelBuku->getBuku()->result_array();
+        $data['buku'] = $this->Buku_model->getBuku()->result_array();
 
+        $data['judul'] = 'Data Anggota';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -46,6 +48,7 @@ class User extends CI_Controller
         ]);
 
         if($this->form_validation->run() == false) {
+            
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);

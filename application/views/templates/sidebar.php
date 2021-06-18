@@ -45,7 +45,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link pb-0" href="<?= base_url('user/angota'); ?>">
+    <a class="nav-link pb-0" href="<?= base_url('user/anggota'); ?>">
       <i class="fas fa-fw fa-book"></i>
       <span>Data Anggota</span>
     </a>
@@ -58,8 +58,27 @@
     </a>
   </li> 
 
-</li>
+  <!-- Divider -->
+  <hr class="sidebar-divider mt-4">
 
+  <!-- Heading -->
+  <div class="sidebar-heading">Transaksi</div>
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item">
+
+  <li class="nav-item">
+    <a class="nav-link pb-0" href="<?= base_url('pinjam'); ?>">
+      <i class="fas fa-fw fa-book"></i>
+      <span>Data Pinjam</span>
+    </a>
+  </li> 
+  <li class="nav-item">
+    <a class="nav-link pb-0" href="<?= base_url('pinjam/daftarBooking'); ?>">
+      <i class="fas fa-fw fa-book"></i>
+      <span>Data Booking</span>
+    </a>
+  </li> 
+</li>
 
 
   <!-- Divider -->

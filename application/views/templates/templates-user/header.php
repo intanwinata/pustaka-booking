@@ -34,9 +34,12 @@
                     </a>
                         <?php 
                             if (!empty($this->session->userdata('email'))) { ?>
-                                <a class="nav-item nav-link" href="<?= base_url('booking'); ?>">Booking 0
-                                </a>
-                                <a class="nav-item nav-link" href="<?= base_url('member/myprofil'); ?>">Profil Saya</a>
+                            <a class="nav-item nav-link" href="<?= base_url('booking'); ?>">Booking
+                                <b><?= $this->Booking_model->getDataWhere('temp', ['
+                                email_user' => $this->session->userdata('email')])->num_rows(); ?> </b>Buku
+                            </a>
+                            <a class="nav-item nav-link" href="<?= base_url('member/myprofil'); ?>">Profil Saya</a>
+
                                 <a class="nav-item nav-link" href="<?= base_url('member/logout'); ?>">
                                     <i class="fas fw fa-login"></i> Log out
                                 </a> 
