@@ -25,7 +25,7 @@
                                     </td>
                                     <td><?= $p['tgl_booking']; ?></td>
                                     <td><?= $p['id_user']; ?></td>
-                                    <form action="<?= base_url('pinjam/pinjamAct/ ' . $p['id_booking']); ?>" method="post">
+                                    <form action="<?= base_url('pinjam/pinjamAct/ ' . $p['id_booking']); ?>"  method="post">
                                         <td nowrap>
                                             <button type="submit" class="btn btn-sm btn-outline-info"><i class="fas fa-fw fa-cart-plus"></i> Pinjam</button>
                                         </td>

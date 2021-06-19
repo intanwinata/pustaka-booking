@@ -3,17 +3,25 @@ if (!defined('BASEPATH')) exit('No Direct Script Access Allowed');
  
  class Pinjam extends CI_Controller 
  {
-     public function __construct()
-     {
+    public function __construct()
+    {
          parent::__construct();
          $this->load->model(['Buku_model', 'User_model', 'Booking_model', 'Pinjam_model']);
          cek_login();
          cek_user();
     } 
   
-    public function index()
+    public function index() 
     {
-    } 
+        $data['judul'] = "Data Pinjam";
+        $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();         $data['pinjam'] = $this->Pinjam_model->joinData(); 
+ 
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pinjam/data-pinjam', $data);
+        $this->load->view('templates/footer');
+    }
   
     public function daftarBooking() 
     {
@@ -47,16 +55,18 @@ if (!defined('BASEPATH')) exit('No Direct Script Access Allowed');
     {
         $id_booking = $this->uri->segment(3);
         $lama = $this->input->post('lama', TRUE);
+
         $bo = $this->db->query("SELECT * FROM booking WHERE id_booking='$id_booking'")->row();
 
         $tglsekarang = date('Y-m-d');
         $no_pinjam = $this->Booking_model->kodeOtomatis('pinjam', 'no_pinjam');
         $databooking = [
             'no_pinjam' => $no_pinjam,
-            'id_booking' => $id_booking,
             'tgl_pinjam' => $tglsekarang,
+            'id_booking' => $id_booking,
             'id_user' => $bo->id_user,
-            'tgl_kembali' => date('Y-m-d', strtotime('+' . $lama . ' days', strtotime($tglsekarang))),             'tgl_pengembalian' => '0000-00-00',
+            'tgl_kembali' => date('Y-m-d', strtotime('+' . $lama . ' days', strtotime($tglsekarang))),
+            'tgl_pengembalian' => '0000-00-00',
             'status' => 'Pinjam',
             'total_denda' => 0
         ];
@@ -72,7 +82,7 @@ if (!defined('BASEPATH')) exit('No Direct Script Access Allowed');
         //$this->db->query("DELETE FROM booking WHERE id_booking='$id_booking'"); 
  
         //update dibooking dan dipinjam pada tabel buku saat buku yang dibooking diambil untuk dipinjam
-        $this->db->query("UPDATE buku, detail_pinjam SET buku.dipinjam=buku.dipinjam+1, buku.dibook ing=buku.dibooking-1 WHERE buku.id=detail_pinjam.id_buku");
+        $this->db->query("UPDATE buku, detail_pinjam SET buku.dipinjam=buku.dipinjam+1, buku.dibooking=buku.dibooking-1 WHERE buku.id=detail_pinjam.id_buku");
         $this->session->set_flashdata('pesan', '<div class="alert alert-message alert-success" role="alert">Data Peminjaman Berhasil Disimpan</div>');
         redirect(base_url() . 'pinjam');
     }
