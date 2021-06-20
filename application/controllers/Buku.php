@@ -94,6 +94,21 @@ class Buku extends CI_Controller
         $this->session->set_flashdata('flash', 'Dihapus');
         redirect('buku');
 	}
+
+	public function ubah($id)
+	{
+		$data['judul'] = 'Data Buku';
+		$data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();
+		$data['buku'] = $this->Buku_model->bukuWhere($id)->result();
+		$data['kategori'] = $this->Buku_model->kategoriWhere(['id'=>$data['buku'][0]->id_kategori])->result();
+		// var_dump($data['kategori']);
+		// die();
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('templates/topbar', $data);
+		$this->load->view('buku/ubah', $data);
+		$this->load->view('templates/footer');
+	}
 	
 	public function ubahBuku() {
         $data['judul'] = 'Ubah Data Buku';

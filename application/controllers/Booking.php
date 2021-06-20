@@ -143,4 +143,19 @@ class Booking extends CI_Controller
         $this->load->view('templates/templates-user/modal');
         $this->load->view('templates/templates-user/footer');
     }
+
+    public function exportToPdf()
+    {
+        // instantiate and use the dompdf class
+        $dompdf = new \Dompdf\Dompdf();
+        $dompdf->getOptions()->set('chroot', '/Applications/XAMPP/xamppfiles/htdocs/pustakaku');
+        $all_html = $this->load->view('booking/pdf_booking',[],true);
+        $dompdf->loadHtmlFile($all_html);
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        // $dompdf->stream();
+    }
 } 

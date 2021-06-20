@@ -85,7 +85,8 @@ class User extends CI_Controller
             
             $this->db->set('nama', $nama);
             $this->db->set('email', $email);
-            $this->db->set('user');
+            $this->db->where('email', $email);
+            $this->db->update('user');
 
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Profil berhasil Diubah</div>');
             redirect('user');

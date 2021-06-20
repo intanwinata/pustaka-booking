@@ -11,7 +11,7 @@ class Buku_model extends CI_Model
 
     public function bukuWhere($where)
     {
-        return $this->db->get_where('buku', $where);
+        return $this->db->get_where('buku', ['id'=>$where]);
     }
 
     public function simpanBuku($data=null)

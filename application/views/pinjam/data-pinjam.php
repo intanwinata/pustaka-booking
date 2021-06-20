@@ -34,7 +34,7 @@
                                     <?php
                                         $tgl1 = new DateTime($p['tgl_kembali']);
                                         $tgl2 = new DateTime();
-                                        $selisih = $tgl2->diff($tgl1)>format("%a");
+                                        $selisih = $tgl2->diff($tgl1)->format("%a");
                                         echo $selisih; 
                                         ?> Hari
                                     </td>
