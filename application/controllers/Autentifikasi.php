@@ -113,8 +113,7 @@ class Autentifikasi extends CI_Controller
         //tampilan registrasi. tapi jika disubmit kemudian validasi form diatas berjalan, maka data yang
         //diinput akan disimpan ke dalam tabel user
         if ($this->form_validation->run() == false) {
-            $data['judul'] = 'Registrasi Member';
-            $this->load->view('templates/aute_header', $data);
+            $this->load->view('templates/aute_header');
             $this->load->view('autentifikasi/registrasi');
             $this->load->view('templates/aute_footer');
         } else {

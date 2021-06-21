@@ -15,8 +15,8 @@ class Member extends CI_Controller {
     
     private function _login()
     {
-        $email = htmlspecialchars($this->input->post('email', true));
-        $password = $this->input->post('password', true); 
+        $email = htmlspecialchars($this->input->post('email'));
+        $password = $this->input->post('password');
         $user = $this->User_model->cekData(['email' => $email])->row_array(); 
  
         //jika usernya ada
@@ -155,9 +155,11 @@ class Member extends CI_Controller {
                 } else {
             }
         }
+        
             $this->db->set('nama', $nama);
             $this->db->where('email', $email);
             $this->db->update('user');
+
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Profil Berhasil diubah </div>');
             redirect('member/myprofil');
         }

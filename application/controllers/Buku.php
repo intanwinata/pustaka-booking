@@ -90,8 +90,8 @@ class Buku extends CI_Controller
 
 	public function hapus($id)
 	{
-		$this->Buku_model->hapusBuku($id);
-        $this->session->set_flashdata('flash', 'Dihapus');
+		$this->Buku_model->hapusBuku(['id' => $id]);
+        $this->session->set_flashdata('flash', '<div class="alert alert-danger alert-message" role="alert">Buku ini berhasil dihapus</div>');
         redirect('buku');
 	}
 
@@ -183,8 +183,18 @@ class Buku extends CI_Controller
                 }
                 else
                 {
-                    $this->Buku_model->ubahBuku();
-                    $this->session->set_flashdata('flash', 'Diubah');
+                    $this->Buku_model->updateBuku([
+						'judul_buku' => $this->input->post('judul_buku'),
+						'pengarang' => $this->input->post('pengarang'),
+						'penerbit' => $this->input->post('penerbit'),
+						'tahun_terbit' => $this->input->post('tahun_terbit'),
+						'isbn' => $this->input->post('isbn'),
+						'stok' => $this->input->post('stok'),
+						'dipinjam' => $this->input->post('dipinjam'),
+						'dibooking' => $this->input->post('dibooking'),
+						'image' => $this->input->post('image'),
+					]);
+                    $this->session->set_flashdata('flash', '<div class="alert alert-danger alert-message" role="alert">Buku berhasil diubah.</div>');
                     redirect('buku');
                 }
 	}

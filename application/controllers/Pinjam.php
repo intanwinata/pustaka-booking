@@ -14,7 +14,8 @@ if (!defined('BASEPATH')) exit('No Direct Script Access Allowed');
     public function index() 
     {
         $data['judul'] = "Data Pinjam";
-        $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();         $data['pinjam'] = $this->Pinjam_model->joinData(); 
+        $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();
+        $data['pinjam'] = $this->Pinjam_model->joinData(); 
  
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -26,7 +27,8 @@ if (!defined('BASEPATH')) exit('No Direct Script Access Allowed');
     public function daftarBooking() 
     {
         $data['judul'] = "Daftar Booking";
-        $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();         $data['pinjam'] = $this->db->query("select * from booking")->result_array(); 
+        $data['user'] = $this->User_model->cekData(['email' => $this->session->userdata('email')])->row_array();
+        $data['pinjam'] = $this->db->query("select * from booking")->result_array(); 
   
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
